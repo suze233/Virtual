@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live2D</title>
+  </head>
+  <body>
+<!--    <script src="./js/oh-my-live2d.js"></script>-->
+
+    <script src="https://unpkg.com/oh-my-live2d@latest"></script>
+    <script>
+      const oml2d = OML2D.loadOml2d({
+        models: [
+          {
+            name: 'Mao',
+            path: 'live2d-model/Mao/Mao.model3.json',
+          },
+          {
+            name: 'Miku',
+            path: 'live2d-model/miku/runtime/miku.model3.json',
+            scale: 0.6,
+
+          }
+        ],
+        sayHello: true,
+        transitionTime: 500,
+
+        menus: (currentModel) => {
+           return currentModel.name
+        }
+      });
+
+oml2d.onLoad((status) => {
+  switch (status) {
+    case 'success':
+      console.log('加载成功');
+      // 设置舞台大小
+      // oml2d.setStageSize({300,300}) // 报错了喵
+
+      // 设置模型位置
+      oml2d.setModelPosition(1000, 1000); // 报错了喵，而且没生效
+
+      return;
+    case 'fail':
+      console.log('加载失败');
+      return;
+    case 'loading':
+      console.log('正在加载中');
+      return;
+  }
+});
+
+
+      // 舞台完全滑入后的事件回调
+      oml2d.onStageSlideIn(() => {
+        oml2d.tipsMessage('欢迎回来, 主人 !!!', 3000, 10);
+      });
+    </script>
+  </body>
+</html>
